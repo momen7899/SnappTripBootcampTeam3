@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import snapptrip.bootcamp.team3.rulebasedpricing.dto.request.ApplicantItemRequestDTO;
+import snapptrip.bootcamp.team3.rulebasedpricing.dto.request.ApplyRequestDTO;
+import snapptrip.bootcamp.team3.rulebasedpricing.dto.response.ApplyResponseDTO;
 import snapptrip.bootcamp.team3.rulebasedpricing.mapper.RuleBasedMapper;
 import snapptrip.bootcamp.team3.rulebasedpricing.service.RuleBasedService;
 
@@ -17,10 +18,9 @@ import snapptrip.bootcamp.team3.rulebasedpricing.service.RuleBasedService;
 public class RuleBasedController {
 
     private RuleBasedService service;
-    private RuleBasedMapper mapper;
 
-    @PutMapping("/applied")
-    private ResponseEntity<ApplicantItemRequestDTO> apply(@RequestBody ApplicantItemRequestDTO applicantItemRequestDTO) {
-        return ResponseEntity.ok().build();
+    @PutMapping("/apply")
+    private ResponseEntity<ApplyResponseDTO> apply(@RequestBody ApplyRequestDTO applicantItemRequestDTO) {
+        return ResponseEntity.ok(service.apply(applicantItemRequestDTO));
     }
 }

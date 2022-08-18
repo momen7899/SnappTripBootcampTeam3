@@ -6,7 +6,7 @@ import snapptrip.bootcamp.team3.rulebasedpricing.model.UserType;
 import java.math.BigDecimal;
 
 @Data
-public class ApplicantItemRequestDTO {
+public class ApplyRequestDTO {
     UserType userType;
     BigDecimal price;
 }

@@ -12,6 +12,7 @@ public class Condition {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
     @ManyToOne

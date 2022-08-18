@@ -15,6 +15,8 @@ public class Rule {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+
+    @Enumerated(value = EnumType.STRING)
     private RuleType ruleType;
 
     @ToString.Exclude
