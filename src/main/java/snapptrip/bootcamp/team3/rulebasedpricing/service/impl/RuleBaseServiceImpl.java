@@ -23,7 +23,6 @@ public class RuleBaseServiceImpl implements RuleBasedService {
     public ApplyResponseDTO apply(ApplyRequestDTO applyRequestDTO) {
         List<Rule> rules = (List<Rule>) repository.findAll();
         List<ApplyRuleResponseDTO> appliedRules = new ArrayList<>();
-
         int seq = 0;
 
         for (Rule rule : rules) {
@@ -54,9 +53,8 @@ public class RuleBaseServiceImpl implements RuleBasedService {
 
     private BigDecimal calculatePrice(Rule rule, BigDecimal oldPrice) {
         Action action = rule.getAction();
-        BigDecimal f =
-                action.getFixedDisplacementAmount().add((oldPrice).
-                        multiply(action.getPercentageDisplacementAmount().divide(BigDecimal.valueOf(100))));
+        BigDecimal f = action.getFixedDisplacementAmount().add((oldPrice).
+                multiply(action.getPercentageDisplacementAmount().divide(BigDecimal.valueOf(100))));
 
         if (rule.getRuleType() == RuleType.DISCOUNT) {
             return oldPrice.subtract(min(f, action.getMaximumDisplacementAmount()));
@@ -71,13 +69,23 @@ public class RuleBaseServiceImpl implements RuleBasedService {
     }
 
     private boolean check(Rule rule, UserType userType) {
-
         for (Condition condition : rule.getConditions()) {
             if (!condition.getUserType().equals(userType)) {
                 return false;
             }
         }
+        return true;
+    }
 
+    private boolean check(Rule rule, UserType userType, long minimumPrice) {
+        for (Condition condition : rule.getConditions()) {
+            if (condition.getMinimumPrice() < minimumPrice) {
+                return false;
+            }
+            if (!condition.getUserType().equals(userType)) {
+                return false;
+            }
+        }
         return true;
     }
 }

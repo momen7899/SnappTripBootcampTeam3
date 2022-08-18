@@ -9,4 +9,5 @@ import java.math.BigDecimal;
 public class ApplyRequestDTO {
     UserType userType;
     BigDecimal price;
+    Integer minimumPrice;
 }

@@ -12,10 +12,11 @@ public class Condition {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
     @ManyToOne
     @JoinColumn(name = "rule_id", referencedColumnName = "id")
     private Rule rule;
+
+    private Long minimumPrice;
 }
